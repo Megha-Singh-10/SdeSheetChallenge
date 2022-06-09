@@ -19,7 +19,7 @@ public:
     vector<int> inorderTraversal(TreeNode* root) {
         //Stack
         // TC->O(N) 
-        //SC->O(1)
+        //SC->O(N)
         vector<int> res;
         if(root==NULL)
             return res;
