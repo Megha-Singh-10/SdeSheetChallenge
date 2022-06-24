@@ -16,44 +16,47 @@ TC->O(N)
 SC->O(N) 
 
 class Queue {
-    int *q;
-    int size;
-    int fronts,back;
 public:
+    int size,qfront,back,qsize;
+    int *q;
     Queue() {
         // Implement the Constructor
-        size=10000;
-        q=new int[size];
-        fronts=-1;
-        back=-1;
+        size=0;
+        qfront=0;
+        back=0;
+        qsize=100010;
+        q=new int[qsize];
     }
 
     /*----------------- Public Functions of Queue -----------------*/
 
     bool isEmpty() {
         // Implement the isEmpty() function
-        if(back==-1)
+        if(qfront==back)
             return true;
         else
             return false;
     }
 
-   void enqueue(int data) {
-        // Implement the enqueue() function  
-       if(fronts==back && back==-1)
-       {
-           fronts=0;           
-       }
-            q[++back]=data;        
+    void enqueue(int data) {
+        // Implement the enqueue() function
+        if(size!=qsize)
+        {
+            q[back++]=data;
+            size++;
+        }
     }
 
-   int dequeue() {
+    int dequeue() {
         // Implement the dequeue() function
         if(isEmpty())
-           return -1;
+            return -1;
         else
         {
-            q[fronts++];
+            int res=q[qfront];
+            qfront++;
+            size--;
+            return res;
         }
     }
 
@@ -62,10 +65,65 @@ public:
         if(isEmpty())
             return -1;
         else
-            q[fronts];
+            return q[qfront];
     }
 };
 
-
 /* CIRCULAR QUEUE*/
+TC->O(N)
+SC->O(N) //Comparatively less, depending on scenario
 
+class Queue {
+public:
+    int size,qfront,back,qsize;
+    int *q;
+    Queue() {
+        // Implement the Constructor
+        size=0;
+        qfront=0;
+        back=0;
+        qsize=10010;
+        q=new int[qsize];
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    bool isEmpty() {
+        // Implement the isEmpty() function
+        if(qfront==back)
+            return true;
+        else
+            return false;
+    }
+
+    void enqueue(int data) {
+        // Implement the enqueue() function
+        if(size!=qsize)
+        {
+            q[back]=data;
+            back=(back+1)%qsize;
+            size++;
+        }
+    }
+
+    int dequeue() {
+        // Implement the dequeue() function
+        if(isEmpty())
+            return -1;
+        else
+        {
+            int res=q[qfront];
+            qfront=(qfront+1)%qsize;
+            size--;
+            return res;
+        }
+    }
+
+    int front() {
+        // Implement the front() function
+        if(isEmpty())
+            return -1;
+        else
+            return q[qfront];
+    }
+};
