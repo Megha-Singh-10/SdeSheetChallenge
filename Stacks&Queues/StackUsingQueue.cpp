@@ -22,17 +22,28 @@ public:
     }
     
     void push(int x) {
-        while(!q1.empty())
+        q2.push(x);
+         while(!q1.empty())
         {
             q2.push(q1.front());
             q1.pop();
-        }
-        q1.push(x);
+        }        
         while(!q2.empty())
         {
             q1.push(q2.front());
             q2.pop();
         }
+        // while(!q1.empty())
+        // {
+        //     q2.push(q1.front());
+        //     q1.pop();
+        // }
+        // q1.push(x);
+        // while(!q2.empty())
+        // {
+        //     q1.push(q2.front());
+        //     q2.pop();
+        // }
     }
     
     int pop() {
@@ -47,6 +58,52 @@ public:
     
     bool empty() {
         return q1.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
+
+ b) Using Only one queue
+ TC->O(2N)
+ SC->O(N)
+
+ class MyStack {
+public:
+    queue<int> q;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q.push(x);
+        int size=q.size()-1;
+        while(size>0)
+        {
+            q.push(q.front());
+            q.pop();
+            size--;
+        }
+    }
+    
+    int pop() {
+         int res=q.front();
+         q.pop();
+        return res;
+    }
+    
+    int top() {
+        return q.front();
+    }
+    
+    bool empty() {
+        return q.empty();
     }
 };
 
