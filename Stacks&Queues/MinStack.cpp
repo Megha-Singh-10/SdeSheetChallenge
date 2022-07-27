@@ -11,7 +11,7 @@ int getMin() retrieves the minimum element in the stack.
 You must implement a solution with O(1) time complexity for each function. */
 
 TC->O(1)
-SC->O(N)
+SC->O(2N)
 
 class MinStack {
 public:
